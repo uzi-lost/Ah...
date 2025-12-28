@@ -1,6 +1,5 @@
 // New Year target — Pakistan Time (UTC +5)
-const targetUTC = Date.UTC(2026, 0, 1, 19, 0, 0); 
-// 2026-01-01 00:00:00 PKT = 2025-12-31 19:00 UTC
+const targetUTC = Date.UTC(2026, 0, 1, 19, 0, 0);
 
 const timerEl = document.getElementById("timer");
 const celebration = document.getElementById("celebration");
