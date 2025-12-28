@@ -39,4 +39,8 @@ document.getElementById("previewBtn")
 function showPreview() {
   celebration.classList.add("show");
 }
+// Preview button for testing celebration
+document.getElementById("previewBtn").addEventListener("click", function() {
+  celebration.classList.add("show");
+});
 
