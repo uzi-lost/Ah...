@@ -5,6 +5,7 @@ const targetUTC = Date.UTC(2026, 0, 1, 19, 0, 0);
 const timerEl = document.getElementById("timer");
 const celebration = document.getElementById("celebration");
 
+// Countdown function
 function updateTimer() {
   const now = new Date().getTime();
   const diff = targetUTC - now;
@@ -28,19 +29,11 @@ function updateTimer() {
     `${String(seconds).padStart(2,"0")}`;
 }
 
+// Start countdown
 updateTimer();
 const interval = setInterval(updateTimer, 1000);
-document.getElementById("previewBtn")
-  ?.addEventListener("click", () => {
-    celebration.classList.add("show");
-});
 
-
-function showPreview() {
-  celebration.classList.add("show");
-}
-// Preview button for testing celebration
+// Preview button
 document.getElementById("previewBtn").addEventListener("click", function() {
   celebration.classList.add("show");
 });
-
