@@ -30,6 +30,11 @@ function updateTimer() {
 
 updateTimer();
 const interval = setInterval(updateTimer, 1000);
+document.getElementById("previewBtn")
+  ?.addEventListener("click", () => {
+    celebration.classList.add("show");
+});
+
 
 function showPreview() {
   celebration.classList.add("show");
