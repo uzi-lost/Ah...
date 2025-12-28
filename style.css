@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#main {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  text-align: left;
+  position: relative;
+  left: -40px; /* slightly to the left */
+}
+
+.name {
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+.message {
+  font-size: 1rem;
+  opacity: 0.85;
+  max-width: 320px;
+  margin-bottom: 25px;
+}
+
+#timer {
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+/* Celebration Screen */
+#celebration {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+#celebration.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.celebrate-box {
+  text-align: center;
+}
+
+.celebrate-box h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.celebrate-box p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
