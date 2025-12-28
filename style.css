@@ -91,7 +91,7 @@ body {
 }
 
 /* CELEBRATION OVERLAY */
-#celebration {
+ /* #celebration {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle, rgba(0,0,0,0.85), rgba(0,0,0,0.95));
@@ -134,6 +134,45 @@ body {
 }
 
 /* CONFETTI CANVAS */
+#celebration {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to top, #1a1a2e, #162447); /* dark night sky */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+  z-index: 5;
+}
+
+.celebrate-box {
+  text-align: center;
+  padding: 30px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
+}
+
+.celebrate-box h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #fffc00;
+  text-shadow: 0 0 25px #fffc00, 0 0 50px #fffc00;
+  animation: pop 0.8s ease forwards, glow 2s ease-in-out infinite alternate;
+}
+
+.celebrate-box p {
+  font-size: 1.5rem;
+  color: #fff;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
 #confetti {
   position: absolute;
   inset: 0;
