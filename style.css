@@ -2,81 +2,77 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-  background: radial-gradient(circle at top, #1b2735, #090a0f);
-  color: #ffffff;
+  background: linear-gradient(135deg, #d6a4f4, #9b6df4);
+  color: white;
   height: 100vh;
   overflow: hidden;
-}
-
-/* MAIN LAYOUT */
-#main {
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
 
-.content {
-  max-width: 360px;
+/* MAIN CONTENT */
+#main {
   text-align: left;
   position: relative;
 }
 
-/* HER NAME */
-.name {
-  font-size: 2.8rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-  color: #f5f5f5;
-  text-shadow: 0 0 20px rgba(255,255,255,0.35);
+.content {
+  max-width: 360px;
+  left: 0;
 }
 
-/* YOUR MESSAGE */
+/* NAME */
+.name {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.35);
+}
+
+/* MESSAGE */
 .message {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin-bottom: 28px;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 25px;
+  line-height: 1.5;
 }
 
 /* TIMER */
 #timer {
-  font-size: 1.8rem;
+  font-size: 2rem;
   letter-spacing: 3px;
-  font-weight: 400;
+  font-weight: 500;
+  margin-bottom: 15px;
 }
 
-/* TULIPS (DECORATIVE) */
-.tulips {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 160px;
-  background: url("https://i.imgur.com/0y0y0y0.png");
-  background-repeat: repeat-x;
-  background-size: contain;
-  opacity: 0.35;
-  pointer-events: none;
+/* PREVIEW BUTTON */
+#previewBtn {
+  margin-top: 15px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 /* CELEBRATION OVERLAY */
 #celebration {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle, #111827, #000000);
+  background: radial-gradient(circle, #5f3a6b, #20042c);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1.2s ease;
+  transition: opacity 1s ease;
 }
 
 #celebration.show {
@@ -90,53 +86,32 @@ body {
 }
 
 .celebrate-box h1 {
-  font-size: 2.6rem;
-  margin-bottom: 14px;
-  letter-spacing: 2px;
+  font-size: 2.8rem;
+  margin-bottom: 15px;
 }
 
 .celebrate-box p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   opacity: 0.9;
   max-width: 320px;
   margin: auto;
 }
 
-<div class="tulip-field"></div>
-
-@media (min-width: 768px) {
-  .content {
-    max-width: 420px;
-  }
-
-  .name {
-    font-size: 3.2rem;
-  }
-}
 /* PURE CSS TULIP FIELD */
 .tulip-field {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 140px;
+  height: 150px;
   background:
-    radial-gradient(circle at 10% 100%, #b91c1c 0 18px, transparent 19px),
-    radial-gradient(circle at 30% 100%, #dc2626 0 18px, transparent 19px),
-    radial-gradient(circle at 50% 100%, #be123c 0 18px, transparent 19px),
-    radial-gradient(circle at 70% 100%, #dc2626 0 18px, transparent 19px),
-    radial-gradient(circle at 90% 100%, #b91c1c 0 18px, transparent 19px);
-  opacity: 0.45;
+    radial-gradient(circle at 5% 100%, #ff4b6e 0 25px, transparent 26px),
+    radial-gradient(circle at 15% 100%, #ff6b81 0 25px, transparent 26px),
+    radial-gradient(circle at 30% 100%, #ff4b6e 0 25px, transparent 26px),
+    radial-gradient(circle at 50% 100%, #ff6b81 0 25px, transparent 26px),
+    radial-gradient(circle at 70% 100%, #ff4b6e 0 25px, transparent 26px),
+    radial-gradient(circle at 85% 100%, #ff6b81 0 25px, transparent 26px),
+    radial-gradient(circle at 95% 100%, #ff4b6e 0 25px, transparent 26px);
+  opacity: 0.5;
   pointer-events: none;
 }
-#previewBtn {
-  margin-top: 20px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.4);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 30px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
