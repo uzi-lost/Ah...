@@ -31,11 +31,21 @@ body {
 #main {
   position: relative;
   z-index: 2;
-  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* center vertically */
+  width: 100%;
 }
 
 .content {
   max-width: 360px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.1);
+  padding: 25px 20px;
+  border-radius: 25px;
+  text-align: center;
+  backdrop-filter: blur(8px);
 }
 
 /* HER NAME */
@@ -55,21 +65,22 @@ body {
 
 /* MESSAGE */
 .message {
-  font-size: 1rem;
-  opacity: 0.9;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  opacity: 0.95;
+  line-height: 1.6;
   margin-bottom: 25px;
 }
 
 /* TIMER */
 #timer {
-  font-size: 2rem;
+  font-size: 2.5rem;
   letter-spacing: 3px;
   margin-bottom: 20px;
 }
 
 /* PREVIEW BUTTON */
 #previewBtn {
+  display: inline-block;
   margin-top: 10px;
   background: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.4);
@@ -100,13 +111,16 @@ body {
 
 .celebrate-box {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 25px;
+  backdrop-filter: blur(6px);
 }
 
 .celebrate-box h1 {
   font-size: 3rem;
   margin-bottom: 15px;
-  animation: pop 0.8s ease forwards;
+  animation: pop 0.8s ease forwards, glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes pop {
@@ -127,20 +141,50 @@ body {
 }
 
 /* TULIPS */
-.tulip-field {
+.bottom-tulips {
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: 15px;
   width: 100%;
-  height: 150px;
-  background:
-    radial-gradient(circle at 5% 100%, #ff4b6e 0 25px, transparent 26px),
-    radial-gradient(circle at 15% 100%, #ff6b81 0 25px, transparent 26px),
-    radial-gradient(circle at 30% 100%, #ff4b6e 0 25px, transparent 26px),
-    radial-gradient(circle at 50% 100%, #ff6b81 0 25px, transparent 26px),
-    radial-gradient(circle at 70% 100%, #ff4b6e 0 25px, transparent 26px),
-    radial-gradient(circle at 85% 100%, #ff6b81 0 25px, transparent 26px),
-    radial-gradient(circle at 95% 100%, #ff4b6e 0 25px, transparent 26px);
-  opacity: 0.6;
+  text-align: center;
+  font-size: 2rem;
+  text-shadow: 0 0 15px rgba(255,0,100,0.6), 0 0 25px rgba(255,0,150,0.4);
+}
+
+/* ROPE LIGHTS */
+.rope-lights {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100px;
   pointer-events: none;
+  z-index: 4;
+}
+
+.rope-lights span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  border-radius: 50%;
+  background: #fffc00;
+  box-shadow: 0 0 15px #fffc00, 0 0 25px #fffc00;
+  animation: blink 1.5s infinite alternate;
+}
+
+.rope-lights span:nth-child(2n) {
+  background: #ff4b6e;
+  box-shadow: 0 0 15px #ff4b6e, 0 0 25px #ff4b6e;
+}
+
+.rope-lights span:nth-child(3n) {
+  background: #4bf0ff;
+  box-shadow: 0 0 15px #4bf0ff, 0 0 25px #4bf0ff;
+}
+
+@keyframes blink {
+  0% { opacity: 0.3; transform: scale(0.7);}
+  50% { opacity: 1; transform: scale(1);}
+  100% { opacity: 0.3; transform: scale(0.7);}
 }
