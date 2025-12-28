@@ -104,8 +104,37 @@ function drawSnow() {
   
   requestAnimationFrame(drawSnow);
 }
+// Lightweight snow
+let flakes = [];
+const confCanvas = document.getElementById('confetti');
+const ctx = confCanvas.getContext('2d');
+confCanvas.width = window.innerWidth;
+confCanvas.height = window.innerHeight;
 
-drawSnow();
+for (let i = 0; i < 50; i++) {  // fewer flakes → faster
+  flakes.push({
+    x: Math.random() * confCanvas.width,
+    y: Math.random() * confCanvas.height,
+    r: Math.random() * 2 + 1,
+    d: Math.random() * 1
+  });
+}
+
+function animateSnow() {
+  ctx.clearRect(0,0,confCanvas.width, confCanvas.height);
+  for (let f of flakes) {
+    ctx.fillStyle = "rgba(255,255,255,0.7)";
+    ctx.beginPath();
+    ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+    ctx.fill();
+    f.y += f.d + 0.5;
+    if (f.y > confCanvas.height) f.y = -10;
+  }
+  requestAnimationFrame(animateSnow);
+}
+animateSnow();
+
+//drawSnow();
 
 //createConfetti();
 //drawConfetti();
