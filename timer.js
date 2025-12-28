@@ -30,3 +30,8 @@ function updateTimer() {
 
 updateTimer();
 const interval = setInterval(updateTimer, 1000);
+
+function showPreview() {
+  celebration.classList.add("show");
+}
+
