@@ -1,61 +1,78 @@
+/* GENERAL RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #d6a4f4, #9b6df4);
-  color: white;
   height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #b084cc, #f4a1d8);
+  color: white;
+  position: relative;
+}
+
+/* PARTICLES CANVAS */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 /* MAIN CONTENT */
 #main {
-  text-align: left;
   position: relative;
+  z-index: 2;
+  text-align: left;
 }
 
 .content {
   max-width: 360px;
-  left: 0;
 }
 
-/* NAME */
+/* HER NAME */
 .name {
+  font-family: 'Dancing Script', cursive;
   font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  text-shadow: 0 0 15px rgba(255,255,255,0.35);
+  text-shadow: 0 0 20px rgba(255,255,255,0.5);
+  margin-bottom: 15px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* GLOW ANIMATION */
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+  to { text-shadow: 0 0 25px rgba(255,255,255,0.7); }
 }
 
 /* MESSAGE */
 .message {
   font-size: 1rem;
   opacity: 0.9;
-  margin-bottom: 25px;
   line-height: 1.5;
+  margin-bottom: 25px;
 }
 
 /* TIMER */
 #timer {
   font-size: 2rem;
   letter-spacing: 3px;
-  font-weight: 500;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 /* PREVIEW BUTTON */
 #previewBtn {
-  margin-top: 15px;
-  background: rgba(255,255,255,0.15);
+  margin-top: 10px;
+  background: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.4);
-  color: white;
   padding: 10px 20px;
   border-radius: 25px;
   font-size: 0.9rem;
@@ -66,13 +83,14 @@ body {
 #celebration {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle, #5f3a6b, #20042c);
+  background: radial-gradient(circle, rgba(0,0,0,0.85), rgba(0,0,0,0.95));
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1s ease;
+  z-index: 5;
 }
 
 #celebration.show {
@@ -86,18 +104,29 @@ body {
 }
 
 .celebrate-box h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
   margin-bottom: 15px;
+  animation: pop 0.8s ease forwards;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity:0; }
+  100% { transform: scale(1); opacity:1; }
 }
 
 .celebrate-box p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   opacity: 0.9;
-  max-width: 320px;
-  margin: auto;
 }
 
-/* PURE CSS TULIP FIELD */
+/* CONFETTI CANVAS */
+#confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* TULIPS */
 .tulip-field {
   position: fixed;
   bottom: 0;
@@ -112,6 +141,6 @@ body {
     radial-gradient(circle at 70% 100%, #ff4b6e 0 25px, transparent 26px),
     radial-gradient(circle at 85% 100%, #ff6b81 0 25px, transparent 26px),
     radial-gradient(circle at 95% 100%, #ff4b6e 0 25px, transparent 26px);
-  opacity: 0.5;
+  opacity: 0.6;
   pointer-events: none;
 }
