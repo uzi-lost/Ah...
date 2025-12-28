@@ -75,5 +75,37 @@ function drawConfetti(){
   }
   requestAnimationFrame(drawConfetti);
 }
-createConfetti();
-drawConfetti();
+let snowflakes = [];
+for (let i = 0; i < 100; i++) {
+  snowflakes.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 2 + 1.5,
+    d: Math.random()
+  });
+}
+
+function drawSnow() {
+  const confCanvas = document.getElementById('confetti');
+  const cctx = confCanvas.getContext('2d');
+  confCanvas.width = window.innerWidth;
+  confCanvas.height = window.innerHeight;
+  
+  cctx.clearRect(0, 0, confCanvas.width, confCanvas.height);
+  
+  for (let s of snowflakes) {
+    cctx.fillStyle = "rgba(255,255,255,0.7)";
+    cctx.beginPath();
+    cctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    cctx.fill();
+    s.y += s.d + 0.5;
+    if (s.y > confCanvas.height) s.y = -10;
+  }
+  
+  requestAnimationFrame(drawSnow);
+}
+
+drawSnow();
+
+//createConfetti();
+//drawConfetti();
