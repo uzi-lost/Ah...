@@ -104,3 +104,13 @@ body {
 
 <div class="tulip-field"></div>
 
+@media (min-width: 768px) {
+  .content {
+    max-width: 420px;
+  }
+
+  .name {
+    font-size: 3.2rem;
+  }
+}
+
