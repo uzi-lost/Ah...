@@ -47,9 +47,18 @@ body {
 
 /* MESSAGE */
 .message {
-  font-size:1rem; line-height:1.5; opacity:0.95;
-  margin: 10px 0 18px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: rgba(255,255,255,0.95);
+  margin: 14px 0 22px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.05);
+  border-left: 3px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.15);
+}
+
 }
 
 /* TIMER */
