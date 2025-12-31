@@ -1,140 +1,143 @@
-/* PARTICLES AND CONFETTI */
+/* animations.js
+   Provides:
+   - small background particles
+   - functions startCelebration() to show overlay, run snow + confetti
+   - designed to be lightweight and mobile-friendly
+*/
 
-// Particles for background
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-for (let i=0; i<60; i++){
-  particles.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    r: Math.random()*2+1,
-    d: Math.random()*1
-  });
-}
-
-function drawParticles(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "rgba(255,255,255,0.5)";
-  ctx.beginPath();
-  for(let i=0;i<particles.length;i++){
-    let p = particles[i];
-    ctx.moveTo(p.x, p.y);
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+// small background particles (always running)
+(function() {
+  const canvas = document.getElementById('particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  const PARTS = Math.max(18, Math.round(W/60)); // scale with width
+  const parts = [];
+  for (let i=0;i<PARTS;i++) {
+    parts.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.6+0.6, s: Math.random()*0.6+0.2 });
   }
-  ctx.fill();
-  moveParticles();
-}
 
-let angle = 0;
-function moveParticles(){
-  angle += 0.01;
-  for(let i=0;i<particles.length;i++){
-    let p = particles[i];
-    p.y += Math.cos(angle + p.d) + 1 + p.r/2;
-    p.x += Math.sin(angle) * 0.5;
-    if(p.x > canvas.width+5 || p.x < -5 || p.y > canvas.height){
-      p.x = Math.random()*canvas.width;
-      p.y = -10;
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    for (let p of parts) {
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+      p.y += p.s;
+      p.x += Math.sin(p.y/50)*0.3;
+      if (p.y > H+10) { p.y = -10; p.x = Math.random()*W; }
     }
+    requestAnimationFrame(draw);
   }
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
+  draw();
 
-// Confetti for celebration
-const confCanvas = document.getElementById("confetti");
-const cctx = confCanvas.getContext("2d");
-confCanvas.width = window.innerWidth;
-confCanvas.height = window.innerHeight;
-let confetti = [];
-function createConfetti(){
-  for(let i=0;i<200;i++){
-    confetti.push({
-      x: Math.random()*confCanvas.width,
-      y: Math.random()*confCanvas.height- confCanvas.height,
-      r: Math.random()*6+4,
-      color: `hsl(${Math.random()*360},100%,50%)`,
-      d: Math.random()*10+5
-    });
-  }
-}
-function drawConfetti(){
-  cctx.clearRect(0,0,confCanvas.width,confCanvas.height);
-  for(let i=0;i<confetti.length;i++){
-    let f = confetti[i];
-    cctx.fillStyle = f.color;
-    cctx.beginPath();
-    cctx.arc(f.x,f.y,f.r,0,Math.PI*2,true);
-    cctx.fill();
-    f.y += f.d/2;
-    if(f.y > confCanvas.height) f.y = -10;
-  }
-  requestAnimationFrame(drawConfetti);
-}
-let snowflakes = [];
-for (let i = 0; i < 100; i++) {
-  snowflakes.push({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    r: Math.random() * 2 + 1.5,
-    d: Math.random()
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
   });
-}
+})();
 
-function drawSnow() {
+// celebration effects (snow + confetti). start only when requested.
+(function() {
   const confCanvas = document.getElementById('confetti');
-  const cctx = confCanvas.getContext('2d');
-  confCanvas.width = window.innerWidth;
-  confCanvas.height = window.innerHeight;
-  
-  cctx.clearRect(0, 0, confCanvas.width, confCanvas.height);
-  
-  for (let s of snowflakes) {
-    cctx.fillStyle = "rgba(255,255,255,0.7)";
-    cctx.beginPath();
-    cctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    cctx.fill();
-    s.y += s.d + 0.5;
-    if (s.y > confCanvas.height) s.y = -10;
+  if (!confCanvas) {
+    window.startCelebration = ()=>{ document.getElementById('celebration').classList.add('show'); };
+    return;
   }
-  
-  requestAnimationFrame(drawSnow);
-}
-// Lightweight snow
-let flakes = [];
-const confCanvas = document.getElementById('confetti');
-const ctx = confCanvas.getContext('2d');
-confCanvas.width = window.innerWidth;
-confCanvas.height = window.innerHeight;
+  const ctx = confCanvas.getContext('2d');
+  let W = confCanvas.width = window.innerWidth;
+  let H = confCanvas.height = window.innerHeight;
 
-for (let i = 0; i < 50; i++) {  // fewer flakes → faster
-  flakes.push({
-    x: Math.random() * confCanvas.width,
-    y: Math.random() * confCanvas.height,
-    r: Math.random() * 2 + 1,
-    d: Math.random() * 1
+  // Snow storage (small)
+  let snow = [];
+  let snowAnimId = null;
+  function initSnow(count=50) {
+    snow = [];
+    for (let i=0;i<count;i++) snow.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.6+0.6, d: Math.random()*0.7+0.2 });
+  }
+  function drawSnow() {
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    for (let s of snow) {
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fill();
+      s.y += s.d + 0.3;
+      s.x += Math.sin(s.y/40)*0.3;
+      if (s.y > H+8) s.y = -8;
+    }
+    snowAnimId = requestAnimationFrame(drawSnow);
+  }
+
+  // Confetti: one short burst and fade
+  function burstConfetti() {
+    const pieces = [];
+    const N = 80;
+    for (let i=0;i<N;i++) {
+      pieces.push({
+        x: Math.random()*W,
+        y: -10,
+        vx: (Math.random()-0.5)*6,
+        vy: Math.random()*3+2,
+        r: Math.random()*5+2,
+        color: `hsl(${Math.round(Math.random()*360)},80%,55%)`,
+        life: 0,
+        ttl: 90 + Math.round(Math.random()*60)
+      });
+    }
+    let frames = 0;
+    function drawPieces() {
+      ctx.clearRect(0,0,W,H);
+      // draw snow behind if active (so confetti and snow can overlap nicely)
+      for (let s of snow) {
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+      }
+      for (let p of pieces) {
+        ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.15; // gravity
+        p.life++;
+      }
+      frames++;
+      if (frames < 220) requestAnimationFrame(drawPieces);
+      else {
+        // stop (cleanup) — keep snow loop if active
+        // clear pieces by redrawing snow only
+      }
+    }
+    drawPieces();
+  }
+
+  // start and stop functions
+  let celebrationRunning = false;
+  window.startCelebration = function() {
+    if (celebrationRunning) return;
+    celebrationRunning = true;
+    // show overlay
+    const overlay = document.getElementById('celebration');
+    overlay.classList.add('show');
+    // prepare snow and run snow loop
+    W = confCanvas.width = window.innerWidth;
+    H = confCanvas.height = window.innerHeight;
+    initSnow(50);
+    if (snowAnimId) cancelAnimationFrame(snowAnimId);
+    drawSnow();
+    // burst confetti once after small delay
+    setTimeout(burstConfetti, 300);
+    // optional: stop snow after some time (but we keep it faint)
+    setTimeout(()=>{
+      // gradually reduce opacity of snow by clearing and drawing less frequently
+      // here we do nothing to keep a soft background snow
+    }, 8000);
+  };
+
+  window.addEventListener('resize', () => {
+    W = confCanvas.width = window.innerWidth;
+    H = confCanvas.height = window.innerHeight;
   });
-}
-
-function animateSnow() {
-  ctx.clearRect(0,0,confCanvas.width, confCanvas.height);
-  for (let f of flakes) {
-    ctx.fillStyle = "rgba(255,255,255,0.7)";
-    ctx.beginPath();
-    ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-    ctx.fill();
-    f.y += f.d + 0.5;
-    if (f.y > confCanvas.height) f.y = -10;
-  }
-  requestAnimationFrame(animateSnow);
-}
-animateSnow();
-
-//drawSnow();
-
-//createConfetti();
-//drawConfetti();
+})();
