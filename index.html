@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>New Year for Her</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Google Font -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- PARTICLES -->
+  <!-- subtle particles canvas (background) -->
   <canvas id="particles"></canvas>
 
-  <!-- MAIN CONTENT -->
-  <div id="main">
+  <!-- main centered content -->
+  <main id="main">
     <div class="content">
-      <div class="name">HER NAME 🌷</div>
-      <div class="message">Your personal New Year message goes here. Make it heartfelt!</div>
-      <div id="timer">00 : 00 : 00 : 00</div>
-      <button id="previewBtn">Preview New Year</button>
-    </div>
-  </div>
+      <div class="name">So Hooria 🌷 </3 .. </div>
 
-  <!-- CELEBRATION OVERLAY -->
-  <div id="celebration">
-    <div class="celebrate-box">
-      <h1>🎉 Happy New Year! 🎉</h1>
-      <p>Your special message appears here.</p>
+      <div class="message">
+        Was reading last years chats and ... Also saw a similar reel so couldn't stop myself ... Cant't wish directy but couldn't stop either :)
+      </div>
+
+      <div id="timer">-- : -- : -- : --</div>
+
+      <div class="controls">
+        <button id="previewBtn" type="button">Preview New Year</button>
+      </div>
     </div>
+  </main>
+
+  <!-- celebration overlay (hidden until timer hits or preview) -->
+  <div id="celebration" aria-hidden="true">
+    <!-- rope lights at top of celebration -->
+    <div class="rope-lights" aria-hidden="true">
+      <div class="rope">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="celebrate-box" role="dialog" aria-modal="true">
+      <h1 id="hnyTitle">🎉 Happy New Year Hoor ! 🎉</h1>
+      <p id="hnyMessage">Allah hameesha khush rakhay , I really don't know what to say so just leave it here </3 .. </p>
+    </div>
+
+    <!-- confetti / snow canvas inside overlay -->
     <canvas id="confetti"></canvas>
   </div>
 
-  <!-- TULIP FIELD -->
-  <div class="tulip-field"></div>
+  <!-- bottom tulips row -->
+  <div class="bottom-tulips" aria-hidden="true">🌷 🌷 🌷 🌷 🌷</div>
 
-  <!-- JS Files -->
-  <script src="timer.js"></script>
+  <!-- scripts -->
   <script src="animations.js"></script>
-  <div class="rope-lights">
-  <span></span><span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span>
-</div>
-  <div class="rope-lights-container">
-  <div class="rope">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-  </div>
-</div>
-
-
-  <div class="bottom-tulips">🌷 🌷 🌷 🌷 🌷</div>
+  <script src="timer.js"></script>
 </body>
 </html>
