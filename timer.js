@@ -1,64 +1,49 @@
-/* timer.js
-   Sets accurate Pakistan timezone target and manages UI.
-*/
-document.addEventListener('DOMContentLoaded', () => {
-  const timerEl = document.getElementById('timer');
-  const previewBtn = document.getElementById('previewBtn');
-  const celebration = document.getElementById('celebration');
-  const hnyTitle = document.getElementById('hnyTitle');
-  const hnyMessage = document.getElementById('hnyMessage');
+document.addEventListener("DOMContentLoaded", () => {
+  const timerEl = document.getElementById("timer");
+  const previewBtn = document.getElementById("previewBtn");
+  const celebration = document.getElementById("celebration");
 
-  // change this message to what you want shown when time's up
-  const PERSONAL_MESSAGE = "May this year bring you peace, joy and success.";
+  // Target: Pakistan time (UTC +5)
+  const target = new Date("2026-01-01T00:00:00+05:00").getTime();
 
-  // target time in Pakistan timezone (PKT = UTC+5)
-  // Use ISO with timezone offset to avoid local timezone issues:
-  const targetTime = new Date('2026-01-01T00:00:00+05:00').getTime();
-
-  function update() {
+  function updateTimer() {
     const now = Date.now();
-    let diff = targetTime - now;
+    let diff = target - now;
 
     if (diff <= 0) {
       timerEl.textContent = "00 : 00 : 00 : 00";
-      // show celebration
-      if (!celebration.classList.contains('show')) {
-        // set messages
-        hnyTitle.textContent = "🎉 Happy New Year! 🎉";
-        hnyMessage.textContent = PERSONAL_MESSAGE;
-        // show overlay and start animations
-        if (typeof window.startCelebration === 'function') {
-          window.startCelebration();
-        } else {
-          celebration.classList.add('show');
-        }
-      }
-      clearInterval(interval);
+      showCelebration();
+      clearInterval(loop);
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff -= days * (1000*60*60*24);
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    diff -= hours * (1000*60*60);
-    const minutes = Math.floor(diff / (1000 * 60));
-    diff -= minutes * (1000*60);
-    const seconds = Math.floor(diff / 1000);
+    const d = Math.floor(diff / 86400000);
+    diff %= 86400000;
+    const h = Math.floor(diff / 3600000);
+    diff %= 3600000;
+    const m = Math.floor(diff / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
 
-    timerEl.textContent = `${String(days).padStart(2,'0')} : ${String(hours).padStart(2,'0')} : ${String(minutes).padStart(2,'0')} : ${String(seconds).padStart(2,'0')}`;
+    timerEl.textContent =
+      `${String(d).padStart(2,"0")} : ` +
+      `${String(h).padStart(2,"0")} : ` +
+      `${String(m).padStart(2,"0")} : ` +
+      `${String(s).padStart(2,"0")}`;
   }
 
-  // run immediately then every second
-  update();
-  const interval = setInterval(update, 1000);
+  function showCelebration() {
+    if (!celebration.classList.contains("show")) {
+      celebration.classList.add("show");
+    }
 
-  // preview button (shows overlay + starts effects)
-  previewBtn?.addEventListener('click', () => {
-    // set custom preview text if wanted
-    hnyTitle.textContent = "🎉 Happy New Year! 🎉";
-    hnyMessage.textContent = PERSONAL_MESSAGE;
-    if (typeof window.startCelebration === 'function') window.startCelebration();
-    else document.getElementById('celebration').classList.add('show');
-  });
+    // safe call animation if it exists
+    if (typeof window.startCelebration === "function") {
+      window.startCelebration();
+    }
+  }
 
-}); // DOMContentLoaded
+  previewBtn.addEventListener("click", showCelebration);
+
+  updateTimer();
+  const loop = setInterval(updateTimer, 1000);
+});
